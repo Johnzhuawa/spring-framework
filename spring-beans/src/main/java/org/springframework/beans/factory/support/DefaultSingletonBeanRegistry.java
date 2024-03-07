@@ -139,6 +139,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	 * @param singletonObject the singleton object
 	 */
 	protected void addSingleton(String beanName, Object singletonObject) {
+//		// 1. 将单例对象放入singletonObjects缓存中
 		Object oldObject = this.singletonObjects.putIfAbsent(beanName, singletonObject);
 		if (oldObject != null) {
 			throw new IllegalStateException("Could not register object [" + singletonObject +
@@ -146,6 +147,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 		}
 		this.singletonFactories.remove(beanName);
 		this.earlySingletonObjects.remove(beanName);
+//		 2. 将beanName放入registeredSingletons缓存中
 		this.registeredSingletons.add(beanName);
 	}
 

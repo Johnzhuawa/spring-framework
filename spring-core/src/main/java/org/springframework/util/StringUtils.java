@@ -574,6 +574,7 @@ public abstract class StringUtils {
 	 * @see java.beans.Introspector#decapitalize(String)
 	 */
 	public static String uncapitalizeAsProperty(String str) {
+//		首两个字母大写开头的不处理
 		if (!hasLength(str) || (str.length() > 1 && Character.isUpperCase(str.charAt(0)) &&
 				Character.isUpperCase(str.charAt(1)))) {
 			return str;
@@ -581,6 +582,12 @@ public abstract class StringUtils {
 		return changeFirstCharacterCase(str, false);
 	}
 
+	/**
+	 * 更改第一个字符的大小写
+	 * @param str
+	 * @param capitalize 是否改为大写，否则改为小写
+	 * @return
+	 */
 	private static String changeFirstCharacterCase(String str, boolean capitalize) {
 		if (!hasLength(str)) {
 			return str;

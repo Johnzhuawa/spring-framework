@@ -150,14 +150,18 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/** String resolvers to apply e.g. to annotation attribute values. */
 	private final List<StringValueResolver> embeddedValueResolvers = new CopyOnWriteArrayList<>();
 
-	/** BeanPostProcessors to apply. */
+	/** BeanPostProcessors to apply. 线程安全的CopyOnWriteArrayList，继承父类的元素*/
 	private final List<BeanPostProcessor> beanPostProcessors = new BeanPostProcessorCacheAwareList();
 
 	/** Cache of pre-filtered post-processors. */
 	@Nullable
 	private BeanPostProcessorCache beanPostProcessorCache;
 
-	/** Map from scope identifier String to corresponding Scope. */
+	/** Map from scope identifier String to corresponding Scope.
+	 * beanFactory.registerScope(WebApplicationContext.SCOPE_REQUEST, new RequestScope());
+	 * beanFactory.registerScope(WebApplicationContext.SCOPE_SESSION, new SessionScope());
+	 *
+	 */
 	private final Map<String, Scope> scopes = new LinkedHashMap<>(8);
 
 	/** Map from bean name to merged RootBeanDefinition. */
@@ -929,6 +933,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
 		Assert.notNull(beanPostProcessor, "BeanPostProcessor must not be null");
 		synchronized (this.beanPostProcessors) {
+//			如果有重复的，重置顺序。
 			// Remove from old position, if any
 			this.beanPostProcessors.remove(beanPostProcessor);
 			// Add to end of list

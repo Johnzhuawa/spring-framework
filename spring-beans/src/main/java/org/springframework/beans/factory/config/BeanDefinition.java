@@ -123,8 +123,9 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
 	 * Override the target scope of this bean, specifying a new scope name.
-	 * @see #SCOPE_SINGLETON
-	 * @see #SCOPE_PROTOTYPE
+	 * bean的作用域
+	 * @see #SCOPE_SINGLETON 单例
+	 * @see #SCOPE_PROTOTYPE 原型，多例
 	 */
 	void setScope(@Nullable String scope);
 
@@ -154,6 +155,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * <p>Note that dependencies are normally expressed through bean properties or
 	 * constructor arguments. This property should just be necessary for other kinds
 	 * of dependencies like statics (*ugh*) or database preparation on startup.
+	 * 设置依赖的bean的名称
 	 */
 	void setDependsOn(@Nullable String... dependsOn);
 
@@ -187,6 +189,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
 	 * Return whether this bean is a primary autowire candidate.
+	 * 是否为主bean，当多个bean都符合自动装配条件时，会优先选择主bean
 	 */
 	boolean isPrimary();
 
@@ -324,6 +327,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
 	 * Set a human-readable description of this bean definition.
+	 * see @Description注解
 	 * @since 5.1
 	 */
 	void setDescription(@Nullable String description);

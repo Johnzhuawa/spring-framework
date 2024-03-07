@@ -88,6 +88,7 @@ class ApplicationContextAwareProcessor implements BeanPostProcessor {
 	}
 
 	private void invokeAwareInterfaces(Object bean) {
+//		环境
 		if (bean instanceof EnvironmentAware environmentAware) {
 			environmentAware.setEnvironment(this.applicationContext.getEnvironment());
 		}
@@ -97,15 +98,18 @@ class ApplicationContextAwareProcessor implements BeanPostProcessor {
 		if (bean instanceof ResourceLoaderAware resourceLoaderAware) {
 			resourceLoaderAware.setResourceLoader(this.applicationContext);
 		}
+//		事件发布器
 		if (bean instanceof ApplicationEventPublisherAware applicationEventPublisherAware) {
 			applicationEventPublisherAware.setApplicationEventPublisher(this.applicationContext);
 		}
+
 		if (bean instanceof MessageSourceAware messageSourceAware) {
 			messageSourceAware.setMessageSource(this.applicationContext);
 		}
 		if (bean instanceof ApplicationStartupAware applicationStartupAware) {
 			applicationStartupAware.setApplicationStartup(this.applicationContext.getApplicationStartup());
 		}
+//		上下文
 		if (bean instanceof ApplicationContextAware applicationContextAware) {
 			applicationContextAware.setApplicationContext(this.applicationContext);
 		}

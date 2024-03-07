@@ -1046,6 +1046,7 @@ public abstract class ClassUtils {
 	 * @param className the className to get the short name for
 	 * @return the class name of the class without the package name
 	 * @throws IllegalArgumentException if the className is empty
+	 * 获取类名的简称，去掉了包名
 	 */
 	public static String getShortName(String className) {
 		Assert.hasLength(className, "Class name must not be empty");

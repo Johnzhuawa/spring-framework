@@ -113,6 +113,7 @@ public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 				return beanName;
 			}
 		}
+//		如果没有找到beanName，就生成一个默认的beanName，类名首字母小写，如果类名首两字母大写则保持类名不变
 		// Fallback: generate a unique default bean name.
 		return buildDefaultBeanName(definition, registry);
 	}
@@ -125,7 +126,7 @@ public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 	@Nullable
 	protected String determineBeanNameFromAnnotation(AnnotatedBeanDefinition annotatedDef) {
 		AnnotationMetadata metadata = annotatedDef.getMetadata();
-
+//		查找注解上的@Component注解的value属性，不存在为null
 		String beanName = getExplicitBeanName(metadata);
 		if (beanName != null) {
 			return beanName;
@@ -251,7 +252,9 @@ public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 	protected String buildDefaultBeanName(BeanDefinition definition) {
 		String beanClassName = definition.getBeanClassName();
 		Assert.state(beanClassName != null, "No bean class name set");
+//		获取类名
 		String shortClassName = ClassUtils.getShortName(beanClassName);
+//		处理类名，首两字母大写则保持类名不变，否则首字母小写
 		return StringUtils.uncapitalizeAsProperty(shortClassName);
 	}
 

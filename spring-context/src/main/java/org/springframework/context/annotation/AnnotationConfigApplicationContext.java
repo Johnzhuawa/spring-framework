@@ -54,20 +54,24 @@ import org.springframework.util.Assert;
  * @see org.springframework.context.support.GenericXmlApplicationContext
  */
 public class AnnotationConfigApplicationContext extends GenericApplicationContext implements AnnotationConfigRegistry {
-
+//	创建一个新的AnnotatedBeanDefinitionReader，用于读取注解
 	private final AnnotatedBeanDefinitionReader reader;
-
+//	创建一个新的AnnotatedBeanDefinitionReader，用于读取注解
 	private final ClassPathBeanDefinitionScanner scanner;
 
 
 	/**
 	 * Create a new AnnotationConfigApplicationContext that needs to be populated
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
+	 * 创建一个新的AnnotationConfigApplicationContext，
+	 * 需要通过调用register进行填充，然后手动refresh。
 	 */
 	public AnnotationConfigApplicationContext() {
 		StartupStep createAnnotatedBeanDefReader = getApplicationStartup().start("spring.context.annotated-bean-reader.create");
+//		 创建一个新的AnnotatedBeanDefinitionReader，用于读取注解
 		this.reader = new AnnotatedBeanDefinitionReader(this);
 		createAnnotatedBeanDefReader.end();
+		//		 创建一个新的ClassPathBeanDefinitionScanner，用于扫描类路径
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 
@@ -86,6 +90,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * from the given component classes and automatically refreshing the context.
 	 * @param componentClasses one or more component classes &mdash; for example,
 	 * {@link Configuration @Configuration} classes
+	 *  指定需要注入容器的bean类
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
 		this();
